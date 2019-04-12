@@ -262,3 +262,47 @@ cmake --build .
 cp -r lib64/python2.7 lib/python.2.7(maybe optional)
 cmake --build . -- target install
 ```
+
+## install  hdfs
+
+#### download a recent stable release
+
+```
+cd /etc/
+wget http://mirrors.shu.edu.cn/apache/hadoop/common/hadoop-2.9.2/hadoop-2.9.2.tar.gz
+```
+
+* unpack
+```
+tar -xvzf pip-10.0.1.tar.gz
+```
+
+* if it occurs the following error
+centos gzip:stdin :unexpected end of file 
+tar : Unexpected EOF in archive
+---- redownload the tar file
+
+#### Configuring Environment of Hadoop Daemons
+
+* To configure Namenode to use parallelGC
+```
+vim ./etc/hadoop/hadoop-env.sh
+export HADOOP_NAMENODE_OPTS="-XX:+UseParallelGC"
+```
+
+* specify the HADOOP_PID_DIR and HADOOP_LOG_DIR directories
+```
+ vim ./etc/hadoop/hadoop-env.sh
+ export HADOOP_PID_DIR ="/codeyuguo/packages/hadoop_data_dir/hadoop_pid_dir"
+ export HADOOP_LOG_DIR ="/codeyuguo/packages/hadoop_data_dir/hadoop_log_dir"
+```
+
+* configure HADOOP_PREFIX in the system-wide shell environment configuration
+```
+cd /etc/profile.d
+vim hadoop.sh
+HADOOP_PREFIX=/etc/hadoop-2.9.2/bin
+export HADOOP_PREFIX
+```
+
+#### Configuring the Hadoop Daemons
